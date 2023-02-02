@@ -15,6 +15,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AddStationFragment.AddStationDialogListener {
@@ -60,28 +62,26 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
 //            }
 //        });
 
-        stationList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listItem, long l) {
-                if (dataList.size() > 0) {
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("do you want to remove " + dataList.get(listItem) + " from list?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dataList.remove(listItem);
-                                    stationAdapter.notifyDataSetChanged();
-                                }
-                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.dismiss();
-                                }
-                            }).create().show();
-                }
-                return false;
-            }
-        });
+//        stationList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listItem, long l) {
+//                    new AlertDialog.Builder(MainActivity.this)
+//                            .setTitle("do you want to remove " + dataList.get(listItem) + " from list?")
+//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    dataList.remove(listItem);
+//                                    stationAdapter.notifyDataSetChanged();
+//                                }
+//                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    dialogInterface.dismiss();
+//                                }
+//                            }).create().show();
+//                    return false;
+//            }
+//        });
 
 
 

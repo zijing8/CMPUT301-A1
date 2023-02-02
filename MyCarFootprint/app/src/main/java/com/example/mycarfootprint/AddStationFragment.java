@@ -56,9 +56,9 @@ public class AddStationFragment extends DialogFragment {
                 .setPositiveButton("Add", (dialog, which) -> {
                     String stationName = editStationName.getText().toString();
                     Date datePlace = new Date();
-                    String sDate = editDatePlace.getYear()+"/"+ editDatePlace.getMonth()+"/"+ editDatePlace.getDayOfMonth();
+                    String sDate = editDatePlace.getYear()+"/"+ (editDatePlace.getMonth()+1)+"/"+ editDatePlace.getDayOfMonth();
                     try {
-                        datePlace = new SimpleDateFormat("yyyy/mm/dd").parse(sDate);
+                        datePlace = new SimpleDateFormat("yyyy/MM/dd").parse(sDate);
                     } catch (ParseException exception) {
 
                     }
