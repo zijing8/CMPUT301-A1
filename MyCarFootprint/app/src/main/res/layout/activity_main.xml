@@ -13,7 +13,7 @@
         android:id="@+id/station_list">
     </ListView>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button_add_city"
+        android:id="@+id/button_add_station"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"

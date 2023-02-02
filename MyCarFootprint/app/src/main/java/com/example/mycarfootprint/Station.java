@@ -7,9 +7,9 @@ public class Station {
     private Date date;
     private String type;
     private int amount;
-    private int price;
+    private double price;
 
-    public Station (String name, Date date, String type, int amount, int price) {
+    public Station (String name, Date date, String type, int amount, double price) {
         this.name = name;
         this.date = date;
         this.type = type;
@@ -49,11 +49,11 @@ public class Station {
         this.amount = amount;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }
