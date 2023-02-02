@@ -46,48 +46,34 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
             dataList.add(new Station(stations[i].getName(), stations[i].getDate(), stations[i].getType(), stations[i].getAmount(), stations[i].getPrice()));
         }
 
-
-//        stationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                Button deleteButton = findViewById(R.id.button_delete_station);
-//                int listIndex = position;
-//                deleteButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        dataList.remove(listIndex);
-//                    }
-//                });
-//
-//            }
-//        });
-
-//        stationList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listItem, long l) {
-//                    new AlertDialog.Builder(MainActivity.this)
-//                            .setTitle("do you want to remove " + dataList.get(listItem) + " from list?")
-//                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//                                    dataList.remove(listItem);
-//                                    stationAdapter.notifyDataSetChanged();
-//                                }
-//                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialogInterface, int i) {
-//                                    dialogInterface.dismiss();
-//                                }
-//                            }).create().show();
-//                    return false;
-//            }
-//        });
-
-
-
         stationList = findViewById(R.id.station_list);
         stationAdapter = new StationArrayAdapter(this, dataList);
         stationList.setAdapter(stationAdapter);
+
+
+
+        stationList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listItem, long l) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("do you want to remove " + dataList.get(listItem) + " from list?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dataList.remove(listItem);
+                                    stationAdapter.notifyDataSetChanged();
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).create().show();
+                    return false;
+            }
+        });
+
+
 
         FloatingActionButton fab = findViewById(R.id.button_add_station);
         fab.setOnClickListener(v -> {
