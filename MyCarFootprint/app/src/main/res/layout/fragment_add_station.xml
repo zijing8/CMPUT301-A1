@@ -8,25 +8,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="Station" />
+        android:hint="Station" />
     <EditText
         android:id="@+id/edit_text_fuel_type_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="Fuel Type" />
+        android:hint="Fuel Type" />
     <EditText
         android:id="@+id/edit_text_amount_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="Amount in Litres" />
+        android:hint="Amount in Litres" />
     <EditText
         android:id="@+id/edit_text_price_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:text="Price Per Litres" />
+        android:hint="Price Per Litres" />
     <DatePicker
         android:id="@+id/simpleDatePicker"
         android:layout_width="wrap_content"

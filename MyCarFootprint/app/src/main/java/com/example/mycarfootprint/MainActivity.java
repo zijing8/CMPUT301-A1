@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
     private ArrayList<Station> dataList;
     private ListView stationList;
     private StationArrayAdapter stationAdapter;
+    private TextView totalText;
+
 
     @Override
     public void addStation(Station station) {
@@ -37,12 +39,10 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Station[] stations = {
-
-        };
+        Station[] stations = {};
 
         dataList = new ArrayList<>();
-        for (int i = 0; i < stations.length; i++){
+        for (int i = 0; i < stations.length; i++) {
             dataList.add(new Station(stations[i].getName(), stations[i].getDate(), stations[i].getType(), stations[i].getAmount(), stations[i].getPrice()));
         }
 
@@ -50,38 +50,59 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
         stationAdapter = new StationArrayAdapter(this, dataList);
         stationList.setAdapter(stationAdapter);
 
+        totalText = findViewById(R.id.total_text);
 
 
         stationList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listItem, long l) {
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("do you want to remove " + dataList.get(listItem) + " from list?")
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dataList.remove(listItem);
-                                    stationAdapter.notifyDataSetChanged();
-                                }
-                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    dialogInterface.dismiss();
-                                }
-                            }).create().show();
-                    return false;
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("do you want to remove " + dataList.get(listItem) + " from list?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dataList.remove(listItem);
+                                stationAdapter.notifyDataSetChanged();
+                                totalText.setText(updateTotal(dataList));
+                            }
+                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        }).create().show();
+
+                return false;
             }
         });
 
 
-
         FloatingActionButton fab = findViewById(R.id.button_add_station);
-        fab.setOnClickListener(v -> {
-            new AddStationFragment().show(getSupportFragmentManager(), "Add City");
+//        fab.setOnClickListener(v -> {
+//            new AddStationFragment().show(getSupportFragmentManager(), "Add City");
+//            totalText.setText(updateTotal(dataList));
+//        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AddStationFragment().show(getSupportFragmentManager(), "Add City");
+                totalText.setText(updateTotal(dataList));
+            }
+
         });
 
-        // Calculate the total carbon emission and fuel cost
-        TextView totalText = findViewById(R.id.total_text);
 
     }
+
+    public String updateTotal(ArrayList<Station> dataList){
+        double totalPrice = 0;
+        int totalFootprint = 0;
+        for (int i = 0; i < dataList.size(); i++) {
+            totalPrice += dataList.get(i).getPrice();
+            totalFootprint += dataList.get(i).getFootprint();
+        }
+        String totalString = "Total fuel cost: " + totalPrice  + " | Total carbon footprint: " + totalFootprint;
+        return totalString;
+    }
+
 }
