@@ -36,12 +36,16 @@ public class StationArrayAdapter extends ArrayAdapter<Station> {
         TextView fuelType = view.findViewById(R.id.fuel_type_text);
         TextView amountPlace = view.findViewById(R.id.amount_text);
         TextView pricePlace = view.findViewById(R.id.price_text);
+        TextView costPlace = view.findViewById(R.id.cost_text);
+        TextView footprintPlace = view.findViewById(R.id.footprint_text);
 
         stationName.setText(station.getName());
         datePlace.setText(station.getDate().toString());
         fuelType.setText(station.getType());
-        amountPlace.setText(String.valueOf(station.getAmount()));
-        pricePlace.setText(Double.toString(station.getPrice()));
+        amountPlace.setText(String.valueOf(station.getAmount())+"L");
+        pricePlace.setText("$"+Double.toString(station.getPrice()));
+        costPlace.setText("$"+Double.toString((station.getCost())));
+        footprintPlace.setText(String.valueOf(station.getFootprint())+"kg");
 
         return view;
     }

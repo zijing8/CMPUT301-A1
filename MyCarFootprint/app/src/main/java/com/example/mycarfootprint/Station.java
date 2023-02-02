@@ -8,6 +8,8 @@ public class Station {
     private String type;
     private int amount;
     private double price;
+    private double cost;
+    private int footprint;
 
     public Station (String name, Date date, String type, int amount, double price) {
         this.name = name;
@@ -15,6 +17,12 @@ public class Station {
         this.type = type;
         this.amount = amount;
         this.price = price;
+        this.cost = price * amount;
+        if (type.equals("Gasoline")) {
+            this.footprint = (int)(2.32 * amount);
+        } else {
+            this.footprint = (int)(2.69 * amount);
+        }
     }
 
     public String getName() {
@@ -55,5 +63,21 @@ public class Station {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public int getFootprint() {
+        return footprint;
+    }
+
+    public void setFootprint(int footprint) {
+        this.footprint = footprint;
     }
 }
