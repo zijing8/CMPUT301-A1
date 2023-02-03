@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
         double totalPrice = 0;
         int totalFootprint = 0;
         for (int i = 0; i < dataList.size(); i++) {
-            totalPrice += dataList.get(i).getPrice();
+            totalPrice += dataList.get(i).getCost();
             totalFootprint += dataList.get(i).getFootprint();
         }
         String totalString = "Total fuel cost: " + totalPrice  + " | Total carbon footprint: " + totalFootprint;

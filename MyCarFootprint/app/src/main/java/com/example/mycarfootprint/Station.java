@@ -17,7 +17,7 @@ public class Station {
         this.type = type;
         this.amount = amount;
         this.price = price;
-        this.cost = price * amount;
+        this.cost = Math.round((price * amount) * 100.0) / 100.0;
         if (type.equals("Gasoline")) {
             this.footprint = (int)(2.32 * amount);
         } else {
