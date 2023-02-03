@@ -66,6 +66,7 @@ public class AddStationFragment extends DialogFragment {
                         int amountPlace = parseInt(editAmountPlace.getText().toString());
                         double pricePlace = Double.parseDouble(editPricePlace.getText().toString());
                         listener.addStation(new Station(stationName, datePlace, typeName, amountPlace, pricePlace));
+                        MainActivity.getInstance().setText();
                     })
                     .create();
     }

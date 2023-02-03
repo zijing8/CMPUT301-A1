@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
     private ListView stationList;
     private StationArrayAdapter stationAdapter;
     private TextView totalText;
-    private Button editButton;
+    private static MainActivity instance;
 
 
     @Override
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        instance = this;
 
         Station[] stations = {};
 
@@ -60,34 +62,10 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
 
         totalText = findViewById(R.id.total_text);
 
-        editButton = findViewById(R.id.button_edit_station);
 
 
-//        stationList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int listItem, long l) {
-//                new AlertDialog.Builder(MainActivity.this)
-//                        .setTitle("do you want to remove " + dataList.get(listItem).toString() + " from list?")
-//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dataList.remove(listItem);
-//                                stationAdapter.notifyDataSetChanged();
-//                                totalText.setText(updateTotal(dataList));
-//                            }
-//                        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.dismiss();
-//                            }
-//                        }).create().show();
-//
-//                return false;
-//            }
-//        });
 
-
-        // Edit Station Button
+        // Edit Station and delete station
         View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.fragment_add_station, null);
         EditText editStationName = view.findViewById(R.id.edit_text_station_text);
         DatePicker editDatePlace = view.findViewById(R.id.simpleDatePicker);
@@ -97,13 +75,23 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
 
         stationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View eview, int position, long l) {
+                if(view.getParent() != null) {
+                    ((ViewGroup)view.getParent()).removeView(view);
+                }
                 int listIndex = position;
                 new AlertDialog.Builder(MainActivity.this)
-//                        .setView(view)
+                        .setView(view)
                         .setTitle("Edit Station")
-                        .setNegativeButton("Cancel", null)
-                        .setPositiveButton("Add", (dialog, which) -> {
+                        .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dataList.remove(position);
+                                stationAdapter.notifyDataSetChanged();
+                                totalText.setText(updateTotal(dataList));
+                            }
+                        })
+                        .setPositiveButton("Edit", (dialog, which) -> {
                             String stationName = editStationName.getText().toString();
                             Date datePlace = new Date();
                             String stringDate = editDatePlace.getYear() + "/" + (editDatePlace.getMonth() + 1) + "/" + editDatePlace.getDayOfMonth();
@@ -114,13 +102,13 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
                             }
                             String typeName = editTypeName.getText().toString();
                             int amountPlace = parseInt(editAmountPlace.getText().toString());
-//                            double pricePlace = Double.parseDouble(editPricePlace.getText().toString());
-//                            Station stationNew = new Station(stationName, datePlace, typeName, amountPlace, pricePlace);
-//                            dataList.set(listIndex, stationNew);
+                            double pricePlace = Double.parseDouble(editPricePlace.getText().toString());
+                            Station stationNew = new Station(stationName, datePlace, typeName, amountPlace, pricePlace);
+                            dataList.set(listIndex, stationNew);
+                            stationAdapter.notifyDataSetChanged();
+                            totalText.setText(updateTotal(dataList));
                         })
                         .create().show();
-                stationAdapter.notifyDataSetChanged();
-                totalText.setText(updateTotal(dataList));
                 };
 
 
@@ -134,14 +122,18 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
             @Override
             public void onClick(View view) {
                 new AddStationFragment().show(getSupportFragmentManager(), "Add Station");
-                totalText.setText(updateTotal(dataList));
             }
-
         });
-
-
     }
 
+    public static MainActivity getInstance() {
+        return instance;
+    }
+    public void setText() {
+        totalText.setText(updateTotal(dataList));
+    }
+
+    // Update the total price and total carbon footprint
     public String updateTotal(ArrayList<Station> dataList){
         double totalPrice = 0;
         int totalFootprint = 0;
