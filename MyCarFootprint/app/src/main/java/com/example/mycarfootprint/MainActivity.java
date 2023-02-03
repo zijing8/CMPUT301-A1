@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements AddStationFragmen
                 new AlertDialog.Builder(MainActivity.this)
                         .setView(view)
                         .setTitle("Edit Station")
+                        .setNeutralButton("Cancel", null)
                         .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
