@@ -49,24 +49,24 @@ public class AddStationFragment extends DialogFragment {
         EditText editPricePlace = view.findViewById(R.id.edit_text_price_text);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        return builder
-                .setView(view)
-                .setTitle("Add a Station")
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("Add", (dialog, which) -> {
-                    String stationName = editStationName.getText().toString();
-                    Date datePlace = new Date();
-                    String stringDate = editDatePlace.getYear()+"/"+ (editDatePlace.getMonth()+1)+"/"+ editDatePlace.getDayOfMonth();
-                    try {
-                        datePlace = new SimpleDateFormat("yyyy/MM/dd").parse(stringDate);
-                    } catch (ParseException exception) {
+            return builder
+                    .setView(view)
+                    .setTitle("Add a Station")
+                    .setNegativeButton("Cancel", null)
+                    .setPositiveButton("Add", (dialog, which) -> {
+                        String stationName = editStationName.getText().toString();
+                        Date datePlace = new Date();
+                        String stringDate = editDatePlace.getYear() + "/" + (editDatePlace.getMonth() + 1) + "/" + editDatePlace.getDayOfMonth();
+                        try {
+                            datePlace = new SimpleDateFormat("yyyy/MM/dd").parse(stringDate);
+                        } catch (ParseException exception) {
 
-                    }
-                    String typeName = editTypeName.getText().toString();
-                    int amountPlace = parseInt(editAmountPlace.getText().toString());
-                    double pricePlace = Double.parseDouble(editPricePlace.getText().toString());
-                    listener.addStation(new Station(stationName, datePlace, typeName, amountPlace, pricePlace));
-                })
-                .create();
+                        }
+                        String typeName = editTypeName.getText().toString();
+                        int amountPlace = parseInt(editAmountPlace.getText().toString());
+                        double pricePlace = Double.parseDouble(editPricePlace.getText().toString());
+                        listener.addStation(new Station(stationName, datePlace, typeName, amountPlace, pricePlace));
+                    })
+                    .create();
     }
 }

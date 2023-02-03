@@ -28,6 +28,12 @@
         android:clickable="true"
         app:srcCompat="@android:drawable/ic_input_add" />
 
+    <Button
+        android:id="@+id/button_edit_station"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"/>
+
 
 
 </LinearLayout>
